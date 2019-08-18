@@ -1,0 +1,171 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ngx-components": {
+      "root": "projects/ngx-components",
+      "sourceRoot": "projects/ngx-components/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-components/tsconfig.lib.json",
+            "project": "projects/ngx-components/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-components/src/test.ts",
+            "tsConfig": "projects/ngx-components/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-components/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-components/tsconfig.lib.json",
+              "projects/ngx-components/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-components-showcase": {
+      "root": "projects/ngx-components-showcase/",
+      "sourceRoot": "projects/ngx-components-showcase/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-components-showcase",
+            "index": "projects/ngx-components-showcase/src/index.html",
+            "main": "projects/ngx-components-showcase/src/main.ts",
+            "polyfills": "projects/ngx-components-showcase/src/polyfills.ts",
+            "tsConfig": "projects/ngx-components-showcase/tsconfig.app.json",
+            "assets": [
+              "projects/ngx-components-showcase/src/favicon.ico",
+              "projects/ngx-components-showcase/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-components-showcase/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-components-showcase/src/environments/environment.ts",
+                  "with": "projects/ngx-components-showcase/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-components-showcase:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-components-showcase:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-components-showcase:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-components-showcase/src/test.ts",
+            "polyfills": "projects/ngx-components-showcase/src/polyfills.ts",
+            "tsConfig": "projects/ngx-components-showcase/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-components-showcase/karma.conf.js",
+            "styles": [
+              "projects/ngx-components-showcase/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/ngx-components-showcase/src/favicon.ico",
+              "projects/ngx-components-showcase/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-components-showcase/tsconfig.app.json",
+              "projects/ngx-components-showcase/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-components-showcase-e2e": {
+      "root": "projects/ngx-components-showcase-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ngx-components-showcase-e2e/protractor.conf.js",
+            "devServerTarget": "ngx-components-showcase:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-components-showcase:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/ngx-components-showcase-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-components"
+}
